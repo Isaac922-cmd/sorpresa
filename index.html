@@ -468,11 +468,11 @@
       }
     }
     
-    /* Tarjeta principal MEJORADA con efectos mágicos */
+    /* TARJETA PRINCIPAL REORGANIZADA - MEJORADA PARA PANTALLAS PEQUEÑAS */
     .elegant-card-wrapper {
       width: 90%;
       max-width: 900px;
-      max-height: 85vh;
+      max-height: 90vh;
       margin: 20px;
       display: flex;
       flex-direction: column;
@@ -530,9 +530,49 @@
       100% { transform: rotate(45deg) translateX(100%); }
     }
     
+    /* REORGANIZACIÓN DEL CONTENIDO DE LA TARJETA */
+    .card-header {
+      width: 100%;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    
+    .card-header h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      margin-bottom: 15px;
+      background: linear-gradient(
+        45deg,
+        var(--color-blush),
+        var(--color-lavender),
+        var(--color-dusty-rose),
+        var(--color-mint)
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      letter-spacing: 1px;
+      animation: titlePulse 3s infinite alternate;
+      line-height: 1.2;
+    }
+    
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 30px;
+    }
+    
+    .card-text-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
     .card-content {
       width: 100%;
-      max-height: 60vh;
+      max-height: 40vh;
       overflow-y: auto;
       padding-right: 10px;
       padding-bottom: 20px;
@@ -552,6 +592,14 @@
       border-radius: 10px;
     }
     
+    .card-candles-section {
+      flex-shrink: 0;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
     @keyframes cardArrival {
       to {
         transform: translateY(0) scale(1);
@@ -564,25 +612,6 @@
       25% { transform: translateY(-12px) rotateX(1deg) rotateY(1deg); }
       50% { transform: translateY(0) rotateX(0) rotateY(0); }
       75% { transform: translateY(-8px) rotateX(-0.8deg) rotateY(-0.8deg); }
-    }
-    
-    .elegant-card h1 {
-      font-size: clamp(2.2rem, 5vw, 3.5rem);
-      margin-bottom: 25px;
-      background: linear-gradient(
-        45deg,
-        var(--color-blush),
-        var(--color-lavender),
-        var(--color-dusty-rose),
-        var(--color-mint)
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      letter-spacing: 1px;
-      animation: titlePulse 3s infinite alternate;
-      line-height: 1.2;
     }
     
     @keyframes titlePulse {
@@ -599,7 +628,7 @@
       animation: fadeInUp 1.5s forwards cubic-bezier(0.34, 1.56, 0.64, 1);
       color: #7a6a8a;
       position: relative;
-      padding: 8px 20px;
+      padding: 8px 15px;
       width: 100%;
       text-align: center;
     }
@@ -638,13 +667,13 @@
       }
     }
     
-    /* Velas mejoradas */
+    /* Velas mejoradas y separadas del texto */
     .elegant-candles {
       position: relative;
-      margin: 30px 0 20px;
+      margin: 15px 0 10px;
       display: flex;
-      gap: clamp(20px, 4vw, 35px);
-      transform: translateY(50px);
+      gap: clamp(15px, 3vw, 25px);
+      transform: translateY(30px);
       opacity: 0;
       animation: candlesAppear 2s 3s forwards cubic-bezier(0.34, 1.56, 0.64, 1);
       flex-wrap: wrap;
@@ -660,19 +689,20 @@
     }
     
     .elegant-candle {
-      width: 24px;
-      height: 95px;
+      width: 20px;
+      height: 75px;
       background: linear-gradient(to right, #fffaf0, white, #fffaf0);
-      border-radius: 10px;
+      border-radius: 8px;
       position: relative;
       box-shadow: 
-        inset 0 -20px 30px rgba(0,0,0,0.06),
-        inset 0 20px 30px rgba(255,255,255,0.6),
-        0 6px 15px rgba(0,0,0,0.08);
+        inset 0 -15px 20px rgba(0,0,0,0.06),
+        inset 0 15px 20px rgba(255,255,255,0.6),
+        0 4px 10px rgba(0,0,0,0.08);
       transform-style: preserve-3d;
       animation: candleSway 12s infinite ease-in-out;
       cursor: pointer;
       transition: transform 0.3s;
+      flex-shrink: 0;
     }
     
     .elegant-candle:hover {
@@ -681,16 +711,16 @@
     
     @keyframes candleSway {
       0%, 100% { transform: translateY(0) rotate(0.5deg); }
-      33% { transform: translateY(-8px) rotate(-0.5deg); }
+      33% { transform: translateY(-5px) rotate(-0.5deg); }
       66% { transform: translateY(0) rotate(0.5deg); }
     }
     
     .elegant-flame {
       position: absolute;
-      top: -40px;
+      top: -30px;
       left: 50%;
-      width: 12px;
-      height: 50px;
+      width: 10px;
+      height: 35px;
       background: linear-gradient(to bottom, #ffdd77, #ffbb44, #ffefaa);
       border-radius: 50% 50% 20% 20%;
       transform: translateX(-50%);
@@ -698,18 +728,18 @@
         flameFlicker 1.6s infinite alternate ease-in-out,
         flameGlow 5s infinite alternate;
       box-shadow: 
-        0 0 20px #ffcc66,
-        0 0 40px rgba(255, 179, 71, 0.5),
-        0 0 80px rgba(255, 200, 100, 0.3);
+        0 0 15px #ffcc66,
+        0 0 30px rgba(255, 179, 71, 0.5),
+        0 0 60px rgba(255, 200, 100, 0.3);
       filter: blur(0.8px);
       z-index: 1;
       transform-origin: center bottom;
     }
     
     @keyframes flameFlicker {
-      0%, 100% { height: 45px; width: 12px; transform: translateX(-50%) scale(1); }
-      33% { height: 55px; width: 14px; transform: translateX(-50%) scale(1.1); }
-      66% { height: 40px; width: 11px; transform: translateX(-50%) scale(0.95); }
+      0%, 100% { height: 32px; width: 10px; transform: translateX(-50%) scale(1); }
+      33% { height: 40px; width: 12px; transform: translateX(-50%) scale(1.1); }
+      66% { height: 28px; width: 9px; transform: translateX(-50%) scale(0.95); }
     }
     
     @keyframes flameGlow {
@@ -721,7 +751,7 @@
     .action-buttons {
       display: flex;
       gap: 15px;
-      margin-top: 25px;
+      margin-top: 30px;
       flex-wrap: wrap;
       justify-content: center;
       transform: translateY(40px);
@@ -1389,7 +1419,7 @@
       width: 100%;
     }
     
-    /* Responsive mejorado */
+    /* RESPONSIVE MEJORADO PARA PANTALLAS PEQUEÑAS */
     @media (max-width: 768px) {
       .elegant-card p::before,
       .elegant-card p::after {
@@ -1398,12 +1428,42 @@
       
       .elegant-card p {
         padding: 8px 0;
+        margin-bottom: 15px;
+      }
+      
+      .elegant-card {
+        padding: 25px 15px;
+      }
+      
+      .card-body {
+        gap: 20px;
+      }
+      
+      .card-content {
+        max-height: 35vh;
+      }
+      
+      .elegant-candles {
+        margin: 10px 0;
+        gap: 12px;
+      }
+      
+      .elegant-candle {
+        width: 18px;
+        height: 65px;
+      }
+      
+      .elegant-flame {
+        top: -25px;
+        height: 30px;
+        width: 9px;
       }
       
       .action-buttons {
         flex-direction: column;
         align-items: center;
         gap: 12px;
+        margin-top: 20px;
       }
       
       .action-btn {
@@ -1415,14 +1475,15 @@
         grid-template-columns: 1fr;
         max-width: 400px;
         margin: 0 auto;
+        gap: 15px;
       }
       
       .modal-content {
         padding: 10px;
       }
       
-      .card-content {
-        max-height: 50vh;
+      .card-header h1 {
+        font-size: 2rem;
       }
       
       .gift-container {
@@ -1439,13 +1500,18 @@
       }
     }
     
-    @media (max-height: 700px) {
+    @media (max-height: 700px) and (orientation: landscape) {
       .card-content {
-        max-height: 45vh;
+        max-height: 30vh;
       }
       
       .elegant-card-wrapper {
-        max-height: 90vh;
+        max-height: 95vh;
+      }
+      
+      .elegant-candles {
+        margin: 5px 0;
+        gap: 10px;
       }
       
       .gift-container {
@@ -1455,20 +1521,16 @@
     
     @media (max-width: 480px) {
       .heart-container {
-        width: 280px;
-        height: 280px;
+        width: 250px;
+        height: 250px;
       }
       
       .name-reveal {
-        font-size: 3.2rem;
-      }
-      
-      .elegant-card {
-        padding: 25px 15px;
+        font-size: 2.8rem;
       }
       
       .card-content {
-        max-height: 40vh;
+        max-height: 30vh;
       }
       
       .close-x {
@@ -1481,7 +1543,49 @@
       }
       
       .gift-message {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+      }
+      
+      .elegant-candles {
+        gap: 10px;
+      }
+      
+      .elegant-candle {
+        width: 16px;
+        height: 55px;
+      }
+      
+      .elegant-flame {
+        top: -20px;
+        height: 25px;
+        width: 8px;
+      }
+      
+      .card-header h1 {
+        font-size: 1.8rem;
+      }
+    }
+    
+    @media (max-width: 375px) {
+      .elegant-card {
+        padding: 20px 10px;
+      }
+      
+      .card-content {
+        max-height: 25vh;
+      }
+      
+      .elegant-candles {
+        gap: 8px;
+      }
+      
+      .elegant-candle {
+        width: 14px;
+        height: 50px;
+      }
+      
+      .card-header h1 {
+        font-size: 1.6rem;
       }
     }
   </style>
@@ -1636,31 +1740,43 @@
   <div id="main-screen" class="screen hidden">
     <div class="elegant-card-wrapper">
       <div class="elegant-card">
-        <h1>¡Feliz Cumpleaños, Miyu! ✨</h1>
-        <div class="card-content">
-          <p>Hoy el universo entero se alinea para celebrar tu maravillosa existencia.</p>
-          <p>Eres un alma extraordinaria, llena de luz, gracia y una bondad que ilumina cada rincón que tocas.</p>
-          <p>Que este nuevo año de vida te traiga todos los sueños que mereces, toda la felicidad que puedes imaginar y todo el amor que cabe en el universo.</p>
-          <p style="font-style: italic; color: var(--color-dusty-rose); margin-top: 25px; font-size: 1.6rem;">
-            "La vida es más bella cuando compartes tu luz única con el mundo."
-          </p>
-          <p style="margin-top: 15px; font-size: 1.4rem; color: var(--color-mauve);">
-            Que cada día de este nuevo año esté lleno de momentos especiales, risas compartidas y sueños cumplidos.
-          </p>
-          <p style="margin-top: 15px; font-size: 1.4rem; color: var(--color-lilac);">
-            Recuerda siempre lo especial que eres y lo mucho que significas para quienes te rodean.
-          </p>
-          <p style="margin-top: 15px; font-size: 1.3rem; color: var(--color-blush);">
-            Tu sonrisa es el regalo más preciado que puedes ofrecer al mundo, y tu corazón es un tesoro que todos apreciamos.
-          </p>
+        <!-- NUEVA ESTRUCTURA DE LA TARJETA -->
+        <div class="card-header">
+          <h1>¡Feliz Cumpleaños, Miyu! ✨</h1>
         </div>
         
-        <div class="elegant-candles" id="candles-container">
-          <div class="elegant-candle"><div class="elegant-flame"></div></div>
-          <div class="elegant-candle"><div class="elegant-flame"></div></div>
-          <div class="elegant-candle"><div class="elegant-flame"></div></div>
-          <div class="elegant-candle"><div class="elegant-flame"></div></div>
-          <div class="elegant-candle"><div class="elegant-flame"></div></div>
+        <div class="card-body">
+          <!-- Sección de texto separada -->
+          <div class="card-text-section">
+            <div class="card-content">
+              <p>Hoy el universo entero se alinea para celebrar tu maravillosa existencia.</p>
+              <p>Eres un alma extraordinaria, llena de luz, gracia y una bondad que ilumina cada rincón que tocas.</p>
+              <p>Que este nuevo año de vida te traiga todos los sueños que mereces, toda la felicidad que puedes imaginar y todo el amor que cabe en el universo.</p>
+              <p style="font-style: italic; color: var(--color-dusty-rose); margin-top: 20px; font-size: 1.4rem;">
+                "La vida es más bella cuando compartes tu luz única con el mundo."
+              </p>
+              <p style="margin-top: 12px; font-size: 1.2rem; color: var(--color-mauve);">
+                Que cada día de este nuevo año esté lleno de momentos especiales, risas compartidas y sueños cumplidos.
+              </p>
+              <p style="margin-top: 12px; font-size: 1.2rem; color: var(--color-lilac);">
+                Recuerda siempre lo especial que eres y lo mucho que significas para quienes te rodean.
+              </p>
+              <p style="margin-top: 12px; font-size: 1.1rem; color: var(--color-blush);">
+                Tu sonrisa es el regalo más preciado que puedes ofrecer al mundo, y tu corazón es un tesoro que todos apreciamos.
+              </p>
+            </div>
+          </div>
+          
+          <!-- Sección de velas separada -->
+          <div class="card-candles-section">
+            <div class="elegant-candles" id="candles-container">
+              <div class="elegant-candle"><div class="elegant-flame"></div></div>
+              <div class="elegant-candle"><div class="elegant-flame"></div></div>
+              <div class="elegant-candle"><div class="elegant-flame"></div></div>
+              <div class="elegant-candle"><div class="elegant-flame"></div></div>
+              <div class="elegant-candle"><div class="elegant-flame"></div></div>
+            </div>
+          </div>
         </div>
         
         <div class="action-buttons">
@@ -2027,7 +2143,7 @@
       // Efecto final antes del viaje
       function createFinalEffect(callback) {
         // Gran explosión de partículas
-        createMagicExplosion(30);
+        createMagicExplosion(15);
         
         // Mostrar mensaje final
         showFloatingMessage("✨ ¡Ahora, tu sorpresa especial! ✨", 2000);
