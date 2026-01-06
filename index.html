@@ -188,17 +188,26 @@
       100% { transform: rotate(360deg) scale(1); }
     }
     
-    /* Corazón con animación mejorada y latidos */
+    /* Corazón con animación mejorada y latidos - CORREGIDO Y RESPONSIVE */
     .heart-container {
       position: relative;
-      width: min(90vw, 550px);
-      height: min(90vw, 550px);
+      width: min(90vw, min(90vh, 550px));
+      height: min(90vw, min(90vh, 550px));
       display: flex;
       justify-content: center;
       align-items: center;
       filter: drop-shadow(0 15px 35px rgba(255, 182, 193, 0.4));
       z-index: 5;
       transform-origin: center;
+      margin: 0 auto;
+    }
+    
+    .heart-svg-wrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
     }
     
     .heart-path {
@@ -229,13 +238,23 @@
       60% { transform: scale(1); }
     }
     
+    /* Contenedor para los puntos del corazón */
+    .heart-dots-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+    
     .heart-dot {
       position: absolute;
-      width: 16px;
-      height: 16px;
+      width: 4%;  /* Usamos porcentajes ahora */
+      height: 4%; /* Usamos porcentajes ahora */
       border-radius: 50%;
       background-color: var(--color-blush);
-      transform: scale(0);
+      transform: translate(-50%, -50%) scale(0); /* Centramos con translate */
       animation: 
         dotAppear 1.2s forwards cubic-bezier(0.34, 1.56, 0.64, 1),
         dotFloat 9s infinite ease-in-out;
@@ -246,32 +265,35 @@
     
     @keyframes dotAppear {
       to { 
-        transform: scale(1); 
+        transform: translate(-50%, -50%) scale(1); 
         opacity: 0.95;
       }
     }
     
     @keyframes dotFloat {
-      0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
-      33% { transform: translateY(-15px) scale(1.1) rotate(5deg); }
-      66% { transform: translateY(8px) scale(0.95) rotate(-5deg); }
+      0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+      33% { transform: translate(-50%, calc(-50% - 15px)) scale(1.1) rotate(5deg); }
+      66% { transform: translate(-50%, calc(-50% + 8px)) scale(0.95) rotate(-5deg); }
     }
     
     .heart-sparkle {
       position: absolute;
-      width: 24px;
-      height: 24px;
+      width: 6%;  /* Usamos porcentajes */
+      height: 6%; /* Usamos porcentajes */
       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 0 L55 30 L85 30 L60 50 L75 85 L50 65 L25 85 L40 50 L15 30 L45 30 Z" fill="%23ffd700"/></svg>');
       background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
       opacity: 0;
       animation: sparkleAppear 4s forwards cubic-bezier(0.34, 1.56, 0.64, 1);
       z-index: 3;
+      transform: translate(-50%, -50%); /* Centramos */
     }
     
     @keyframes sparkleAppear {
-      0% { opacity: 0; transform: scale(0) rotate(0deg); }
-      70% { opacity: 0.9; transform: scale(1.2) rotate(180deg); }
-      100% { opacity: 1; transform: scale(1) rotate(360deg); }
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0) rotate(0deg); }
+      70% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.2) rotate(180deg); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(360deg); }
     }
     
     /* Revelación del nombre espectacular */
@@ -1519,14 +1541,36 @@
       }
     }
     
-    @media (max-width: 480px) {
+    /* Media queries específicas para el corazón */
+    @media (max-width: 768px) {
       .heart-container {
-        width: 250px;
-        height: 250px;
+        width: min(85vw, 85vh, 400px);
+        height: min(85vw, 85vh, 400px);
       }
       
       .name-reveal {
-        font-size: 2.8rem;
+        font-size: clamp(2.5rem, 10vw, 5rem);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .heart-container {
+        width: min(80vw, 80vh, 300px);
+        height: min(80vw, 80vh, 300px);
+      }
+      
+      .heart-dot {
+        width: 5%;
+        height: 5%;
+      }
+      
+      .heart-sparkle {
+        width: 7%;
+        height: 7%;
+      }
+      
+      .name-reveal {
+        font-size: clamp(2rem, 8vw, 3.5rem);
       }
       
       .card-content {
@@ -1567,6 +1611,21 @@
     }
     
     @media (max-width: 375px) {
+      .heart-container {
+        width: min(75vw, 75vh, 250px);
+        height: min(75vw, 75vh, 250px);
+      }
+      
+      .heart-dot {
+        width: 6%;
+        height: 6%;
+      }
+      
+      .heart-sparkle {
+        width: 8%;
+        height: 8%;
+      }
+      
       .elegant-card {
         padding: 20px 10px;
       }
@@ -1586,6 +1645,22 @@
       
       .card-header h1 {
         font-size: 1.6rem;
+      }
+    }
+    
+    /* Para pantallas muy altas (orientación vertical) */
+    @media (max-height: 700px) {
+      .heart-container {
+        width: min(70vh, 70vw, 350px);
+        height: min(70vh, 70vw, 350px);
+      }
+    }
+    
+    /* Para pantallas muy anchas (orientación horizontal) */
+    @media (max-width: 900px) and (orientation: landscape) {
+      .heart-container {
+        width: min(60vh, 60vw, 400px);
+        height: min(60vh, 60vw, 400px);
       }
     }
   </style>
@@ -1717,18 +1792,21 @@
   
   <div id="heart-screen" class="screen hidden">
     <div class="heart-container" id="heart-container">
-      <svg class="heart-path" viewBox="0 0 500 500">
-        <path d="M250,150 
-                C250,150 200,100 150,100 
-                C100,100 50,150 50,200 
-                C50,250 100,300 150,350 
-                C200,400 250,450 250,450 
-                C250,450 300,400 350,350 
-                C400,300 450,250 450,200 
-                C450,150 400,100 350,100 
-                C300,100 250,150 250,150 Z" 
-              fill="none" stroke="var(--color-blush)" stroke-width="2.5"/>
-      </svg>
+      <div class="heart-svg-wrapper">
+        <svg class="heart-path" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+          <path d="M50,30 
+                  C50,30 40,20 30,20 
+                  C20,20 10,30 10,40 
+                  C10,50 20,60 30,70 
+                  C40,80 50,90 50,90 
+                  C50,90 60,80 70,70 
+                  C80,60 90,50 90,40 
+                  C90,30 80,20 70,20 
+                  C60,20 50,30 50,30 Z" 
+                fill="none" stroke="var(--color-blush)" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <!-- Los puntos se agregarán dinámicamente aquí -->
     </div>
     <div class="name-reveal" id="name-reveal"></div>
   </div>
@@ -1930,21 +2008,25 @@
         }
       }
       
-      // Crear puntos del corazón con fórmula matemática
+      // Crear puntos del corazón con posiciones relativas (porcentajes)
       function createHeartPoints() {
         const points = [];
-        const centerX = 250;
-        const centerY = 250;
-        const scale = 180;
+        const centerX = 50; // Usamos 50% como centro
+        const centerY = 50; // Usamos 50% como centro
+        const scale = 45;   // Escala para ajustar el tamaño en porcentaje
         
         for (let t = 0; t < 2 * Math.PI; t += 0.015) {
-          // Fórmula del corazón paramétrica
+          // Fórmula del corazón paramétrica - convertida a porcentajes
           const x = 16 * Math.pow(Math.sin(t), 3);
           const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
           
+          // Convertir a porcentajes relativos al contenedor
+          const percentX = centerX + (x * scale / 16);
+          const percentY = centerY + (y * scale / 16);
+          
           points.push({
-            x: centerX + x * scale / 16,
-            y: centerY + y * scale / 16
+            x: percentX,  // Ahora en porcentaje
+            y: percentY   // Ahora en porcentaje
           });
         }
         
@@ -1952,31 +2034,36 @@
         return points;
       }
       
-      // Construir corazón con animación mejorada y latidos
+      // Construir corazón con animación mejorada y latidos - CORREGIDO
       function buildHeartComplete() {
         const points = createHeartPoints();
         heartPointsCompleted = 0;
+        
+        // Crear contenedor para los puntos
+        const dotsContainer = document.createElement('div');
+        dotsContainer.className = 'heart-dots-container';
+        heartContainer.appendChild(dotsContainer);
         
         points.forEach((point, i) => {
           setTimeout(() => {
             // Crear punto del corazón
             const dot = document.createElement('div');
             dot.className = 'heart-dot';
-            dot.style.left = `${point.x}px`;
-            dot.style.top = `${point.y}px`;
+            dot.style.left = `${point.x}%`;  // Usamos porcentaje
+            dot.style.top = `${point.y}%`;   // Usamos porcentaje
             
             // Color suave aleatorio
             const color = softColors[Math.floor(Math.random() * softColors.length)];
             dot.style.backgroundColor = color;
             
-            // Tamaño y animación variables
+            // Tamaño variable pero en porcentaje
             const size = 0.6 + Math.random() * 0.8;
-            dot.style.width = `${16 * size}px`;
-            dot.style.height = `${16 * size}px`;
+            dot.style.width = `${4 * size}%`;  // Base de 4% + variación
+            dot.style.height = `${4 * size}%`;
             dot.style.animationDelay = `${i * 0.03}s`;
             dot.style.animationDuration = `${6 + Math.random() * 6}s`;
             
-            heartContainer.appendChild(dot);
+            dotsContainer.appendChild(dot);
             heartPointsCompleted++;
             
             // Destellos especiales
@@ -1984,12 +2071,12 @@
               setTimeout(() => {
                 const sparkle = document.createElement('div');
                 sparkle.className = 'heart-sparkle';
-                sparkle.style.left = `${point.x + (Math.random() * 40 - 20)}px`;
-                sparkle.style.top = `${point.y + (Math.random() * 40 - 20)}px`;
-                sparkle.style.transform = `scale(${0.4 + Math.random() * 0.8}) rotate(${Math.random() * 360}deg)`;
+                sparkle.style.left = `${point.x + (Math.random() * 4 - 2)}%`;  // Porcentaje
+                sparkle.style.top = `${point.y + (Math.random() * 4 - 2)}%`;   // Porcentaje
+                sparkle.style.transform = `translate(-50%, -50%) scale(${0.4 + Math.random() * 0.8}) rotate(${Math.random() * 360}deg)`;
                 sparkle.style.animationDelay = `${i * 0.03 + 0.3}s`;
                 
-                heartContainer.appendChild(sparkle);
+                dotsContainer.appendChild(sparkle);
               }, 500);
             }
             
@@ -2640,3 +2727,4 @@
   </script>
 </body>
 </html>
+
